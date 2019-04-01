@@ -180,8 +180,8 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ofxGraphVisualization.cpp" />
-    <ClCompile Include="..\src\ofxGraphVisualization.h" />
+    <ClCompile Include="..\src\ofxGraph.cpp" />
+    <ClCompile Include="..\src\ofxGraph.h" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>

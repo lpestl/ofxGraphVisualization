@@ -1,4 +1,4 @@
-#include "ofxGraphVisualization.h"
+#include "ofxGraph.h"
 
 void ofxGraph::setup()
 {

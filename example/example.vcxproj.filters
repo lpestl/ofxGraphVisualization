@@ -7,10 +7,10 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ofxGraphVisualization.h">
+    <ClCompile Include="..\src\ofxGraph.cpp">
       <Filter>addons\ofxGraphVisualization\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ofxGraphVisualization.cpp">
+    <ClCompile Include="..\src\ofxGraph.h">
       <Filter>addons\ofxGraphVisualization\src</Filter>
     </ClCompile>
   </ItemGroup>
