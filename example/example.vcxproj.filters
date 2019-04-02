@@ -13,6 +13,12 @@
     <ClCompile Include="..\src\ofxGraph.h">
       <Filter>addons\ofxGraphVisualization\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Node.cpp">
+      <Filter>addons\ofxGraphVisualization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Edge.cpp">
+      <Filter>addons\ofxGraphVisualization\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -31,6 +37,12 @@
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Node.h">
+      <Filter>addons\ofxGraphVisualization\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Edge.h">
+      <Filter>addons\ofxGraphVisualization\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
