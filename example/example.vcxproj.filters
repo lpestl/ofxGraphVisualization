@@ -1,51 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <ClCompile Include="src\ofApp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ofxGraph.cpp">
-      <Filter>addons\ofxGraphVisualization\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ofxGraph.h">
-      <Filter>addons\ofxGraphVisualization\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Node.cpp">
-      <Filter>addons\ofxGraphVisualization\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Edge.cpp">
-      <Filter>addons\ofxGraphVisualization\src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons">
-      <UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxGraphVisualization">
-      <UniqueIdentifier>{ACB24E7A-675D-97EB-C987-8774}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxGraphVisualization\src">
-      <UniqueIdentifier>{901D70C4-D595-0845-4E94-AA49}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\ofApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Node.h">
-      <Filter>addons\ofxGraphVisualization\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Edge.h">
-      <Filter>addons\ofxGraphVisualization\src</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="icon.rc" />
-  </ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGraphVisualization\src\Edge.cpp">
+			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGraphVisualization\src\Node.cpp">
+			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGraphVisualization\src\ofxGraph.cpp">
+			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGraphVisualization">
+			<UniqueIdentifier>{ACB24E7A-675D-97EB-C987-8774}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGraphVisualization\src">
+			<UniqueIdentifier>{901D70C4-D595-0845-4E94-AA49}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGraphVisualization\src\Edge.h">
+			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGraphVisualization\src\Node.h">
+			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGraphVisualization\src\ofxGraph.h">
+			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
 </Project>

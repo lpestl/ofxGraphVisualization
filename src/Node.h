@@ -3,6 +3,8 @@
 #include <vector>
 #include "Edge.h"
 
+class Edge;
+
 class Node
 {
 public:
@@ -11,8 +13,8 @@ public:
 
 	unsigned getId() const;
 	size_t getEdgesNumber() const;
-	void addEdge(const Node * dstNode);
-	void deleteEdge(const Node * dstNode);
+	bool addEdge(Node* dstNode);
+	void deleteEdge(Node* dstNode);
 	//void deleteEdge(int index);
 private:
 	unsigned id_;
