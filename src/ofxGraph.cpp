@@ -54,11 +54,11 @@ size_t ofxGraph::getOutEdgesNumber(unsigned id)
 {
 }
 
-size_t ofxGraph::getEdgesNumber(unsigned id)
+size_t ofxGraph::getEdgesNumber(unsigned id, bool mergeBothDirEdge)
 {
 }
 
-std::vector<std::vector<bool>> ofxGraph::getAdjacencyMatrix()
+std::vector<std::vector<std::shared_ptr<Edge>>> ofxGraph::getAdjacencyMatrix()
 {
 }
 

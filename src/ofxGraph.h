@@ -23,9 +23,9 @@ public:
 	size_t getNodesNumber();
 	size_t getInEdgesNumber(unsigned id);
 	size_t getOutEdgesNumber(unsigned id);
-	size_t getEdgesNumber(unsigned id);
+	size_t getEdgesNumber(unsigned id, bool mergeBothDirEdge = false);
 
-	std::vector<std::vector<bool>> getAdjacencyMatrix();
+	std::vector<std::vector<std::shared_ptr<Edge>>> getAdjacencyMatrix();
 	std::vector<std::shared_ptr<Edge>> getEdgesList();
 private:
 	std::map<unsigned, std::shared_ptr<Node>> nodes_;
