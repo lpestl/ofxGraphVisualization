@@ -1,12 +1,13 @@
 #include "Edge.h"
 
-Edge::Edge(Node* srcNode, Node* dstNode, int weight)
+Edge::Edge(std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight)
 {
 	sourceNode_ = srcNode;
 	destNode_ = dstNode;
 
 	weight_ = weight;
 }
+
 
 Edge::~Edge()
 {
