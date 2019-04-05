@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxGraph.h"
+#include "Graph.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,5 +23,5 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 	private:
-		ofxGraph grapph_;
+		Graph grapph_;
 };
