@@ -8,7 +8,7 @@ class Node;
 class Edge
 {
 public:
-	Edge(unsigned id, std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight);
+	Edge(std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight);
 	~Edge();	
 
 	unsigned getId() const;
@@ -19,7 +19,6 @@ public:
 	void setWeight(int new_weight);
 
 private:
-	unsigned id_;
 	std::shared_ptr<Node>	sourceNode_;
 	std::shared_ptr<Node>	destNode_;
 	int		weight_;

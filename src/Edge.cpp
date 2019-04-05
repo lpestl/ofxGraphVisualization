@@ -1,9 +1,7 @@
 #include "Edge.h"
 
-Edge::Edge(unsigned id, std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight)
+Edge::Edge(std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight)
 {
-	id_ = id;
-
 	sourceNode_ = srcNode;
 	destNode_ = dstNode;
 
@@ -15,10 +13,10 @@ Edge::~Edge()
 {
 }
 
-unsigned Edge::getId() const
-{
-	return id_;
-}
+//unsigned Edge::getId() const
+//{
+//	return id_;
+//}
 
 unsigned Edge::getSourceNodeId() const
 {
