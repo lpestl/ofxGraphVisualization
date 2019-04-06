@@ -74,18 +74,23 @@ void Graph::addNode(unsigned id)
 	adjacency_matrix_[id] = line;
 
 	for (auto&& node : nodes_)
-		adjacency_matrix_[node.first][id] = nullptr;
-	
-	/*for (auto && row : adjacency_matrix_)
-		row.second[id] = nullptr;
-
-	for (auto&& column : adjacency_matrix_[id])
-		column.second = nullptr;*/
+		adjacency_matrix_[node.first][id] = nullptr;	
 }
 
 void Graph::deleteNode(unsigned id)
 {
-	// todo:
+	if (nodes_.find(id) == nodes_.end())
+	{
+		std::cout << "[WARN] Node with id = " << id << "not founded." << std::endl;
+		return;
+	}
+
+	for (auto && node : nodes_)
+		adjacency_matrix_[node.second->getId()].erase(id);
+
+	adjacency_matrix_.erase(id);
+
+	nodes_.erase(id);
 }
 
 void Graph::addEdge(unsigned from, unsigned to, int weight)
@@ -110,17 +115,54 @@ void Graph::addEdge(unsigned from, unsigned to, int weight)
 
 void Graph::deleteEdge(unsigned from, unsigned to)
 {
-	// todo:
+	if (nodes_.find(from) == nodes_.end())
+	{
+		std::cout << "[WARN] Node with id = " << from << "not founded." << std::endl;
+		return;
+	}
+
+	if (nodes_.find(to) == nodes_.end())
+	{
+		std::cout << "[WARN] Node with id = " << to << "not founded." << std::endl;
+		return;
+	}
+
+	if (adjacency_matrix_[from][to] == nullptr)
+		std::cout << "[WARN] Edge from " << from << " to " << to << " not founded." << std::endl;
+	else
+		adjacency_matrix_[from][to] = nullptr;
 }
 
 size_t Graph::getInEdgesCount(unsigned node_id)
 {
-	// todo:
-	return 0;
+	if (nodes_.find(node_id) == nodes_.end())
+	{
+		std::cout << "[WARN] Node with id = " << node_id << "not founded." << std::endl;
+		return 0;
+	}
+
+	// todo: check it
+	size_t count = 0;
+	for (auto && node : nodes_)
+		if (adjacency_matrix_[node_id][node.second->getId()] != nullptr)
+			count++;
+
+	return count;
 }
 
 size_t Graph::getOutEdgesCount(unsigned node_id)
 {
-	// todo:
-	return 0;
+	if (nodes_.find(node_id) == nodes_.end())
+	{
+		std::cout << "[WARN] Node with id = " << node_id << "not founded." << std::endl;
+		return 0;
+	}
+
+	// todo: check it
+	size_t count = 0;
+	for (auto&& node : nodes_)
+		if (adjacency_matrix_[node.second->getId()][node_id] != nullptr)
+			count++;
+
+	return count;
 }
