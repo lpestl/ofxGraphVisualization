@@ -15,16 +15,21 @@ void ofApp::setup(){
 		}
 		std::cout << std::endl;
 	}
+
+	node_ = std::make_shared<ofxNode>(1);
+	node_->setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	node_->update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	ofBackgroundGradient(ofColor(131, 219, 231), ofColor(38, 169, 241));
+
+	node_->draw();
 }
 
 //--------------------------------------------------------------

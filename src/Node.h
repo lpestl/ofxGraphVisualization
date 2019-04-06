@@ -4,10 +4,13 @@ class Node
 {
 public:
 	Node(unsigned id);
-	~Node();
+	virtual ~Node();
+
+	virtual void update() {};
+	virtual void draw() {};
 
 	unsigned getId() const;
-private:
+protected:
 	unsigned id_;
 };
 
