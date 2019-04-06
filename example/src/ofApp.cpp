@@ -3,6 +3,18 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	grapph_.init("data\\edges.csv");
+
+	for (auto && matrix : grapph_.adjacency_matrix_)
+	{
+		for (auto && value : grapph_.adjacency_matrix_[matrix.first])
+		{
+			if (value.second == nullptr)
+				std::cout << 0 << " ";
+			else
+				std::cout << value.second.get()->getWeight() << " ";
+		}
+		std::cout << std::endl;
+	}
 }
 
 //--------------------------------------------------------------

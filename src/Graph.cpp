@@ -66,12 +66,21 @@ void Graph::addNode(unsigned id)
 		return;
 
 	nodes_[id] = std::make_shared<Node>(id);
+
+	std::map<unsigned, std::shared_ptr<Edge>> line;
+	for (auto&& node : nodes_)
+		line[node.first] = nullptr;
+
+	adjacency_matrix_[id] = line;
+
+	for (auto&& node : nodes_)
+		adjacency_matrix_[node.first][id] = nullptr;
 	
-	for (auto && row : adjacency_matrix_)
+	/*for (auto && row : adjacency_matrix_)
 		row.second[id] = nullptr;
 
 	for (auto&& column : adjacency_matrix_[id])
-		column.second = nullptr;
+		column.second = nullptr;*/
 }
 
 void Graph::deleteNode(unsigned id)

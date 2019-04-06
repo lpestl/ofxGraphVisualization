@@ -21,7 +21,7 @@ public:
 
 	size_t getInEdgesCount(unsigned node_id);
 	size_t getOutEdgesCount(unsigned node_id);
-private:
+//private:
 	std::map<unsigned, std::shared_ptr<Node>> nodes_;
 	std::map<unsigned, std::map<unsigned, std::shared_ptr<Edge>>> adjacency_matrix_;
 };

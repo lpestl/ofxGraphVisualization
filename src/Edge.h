@@ -11,7 +11,7 @@ public:
 	Edge(std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight);
 	~Edge();	
 
-	unsigned getId() const;
+	//unsigned getId() const;
 	unsigned getSourceNodeId() const;
 	unsigned getDestNodeId() const;
 
