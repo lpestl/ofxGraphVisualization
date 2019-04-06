@@ -64,8 +64,9 @@ void Graph::addNode(unsigned id)
 {
 	if (nodes_.find(id) != nodes_.end())
 		return;
-
-	nodes_[id] = std::make_shared<Node>(id);
+	
+	//nodes_[id] = std::make_shared<Node>(id);
+	createNodeInstance(id);
 
 	std::map<unsigned, std::shared_ptr<Edge>> line;
 	for (auto&& node : nodes_)
@@ -110,7 +111,8 @@ void Graph::addEdge(unsigned from, unsigned to, int weight)
 	if (adjacency_matrix_[from][to] != nullptr)
 		adjacency_matrix_[from][to].get()->setWeight(weight);
 	else
-		adjacency_matrix_[from][to] = std::make_shared<Edge>(nodes_[from], nodes_[to], weight);
+		//adjacency_matrix_[from][to] = std::make_shared<Edge>(nodes_[from], nodes_[to], weight);
+		createEdgeInstance(from, to, weight);
 }
 
 void Graph::deleteEdge(unsigned from, unsigned to)
@@ -165,4 +167,14 @@ size_t Graph::getOutEdgesCount(unsigned node_id)
 			count++;
 
 	return count;
+}
+
+void Graph::createNodeInstance(unsigned id)
+{
+	nodes_[id] = std::make_shared<Node>(id);
+}
+
+void Graph::createEdgeInstance(unsigned from, unsigned to, int weight)
+{
+	adjacency_matrix_[from][to] = std::make_shared<Edge>(nodes_[from], nodes_[to], weight);
 }

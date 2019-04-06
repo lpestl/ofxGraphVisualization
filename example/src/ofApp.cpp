@@ -2,9 +2,10 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	grapph_.setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
 	grapph_.init("data\\edges.csv");
 
-	for (auto && matrix : grapph_.adjacency_matrix_)
+	/*for (auto && matrix : grapph_.adjacency_matrix_)
 	{
 		for (auto && value : grapph_.adjacency_matrix_[matrix.first])
 		{
@@ -14,22 +15,24 @@ void ofApp::setup(){
 				std::cout << value.second.get()->getWeight() << " ";
 		}
 		std::cout << std::endl;
-	}
+	}*/
 
-	node_ = std::make_shared<ofxNode>(1);
-	node_->setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
+	//node_ = std::make_shared<ofxNode>(1);
+	//node_->setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	node_->update();
+	//node_->update();
+	grapph_.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	ofBackgroundGradient(ofColor(131, 219, 231), ofColor(38, 169, 241));
 
-	node_->draw();
+	//node_->draw();
+	grapph_.draw();
 }
 
 //--------------------------------------------------------------

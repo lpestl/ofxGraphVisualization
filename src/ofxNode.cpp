@@ -5,7 +5,7 @@ void ofxNode::setup(ofRectangle boundRect)
 {
 	boundRect_ = boundRect;
 
-	std::default_random_engine generator;
+	std::default_random_engine generator(ofGetElapsedTimeMicros());
 
 	std::uniform_int_distribution<int> xRange(static_cast<int>(boundRect_.getMinX()), static_cast<int>(boundRect_.getMaxX()));
 	std::uniform_int_distribution<int> yRange(static_cast<int>(boundRect_.getMinY()), static_cast<int>(boundRect_.getMaxY()));
@@ -53,6 +53,8 @@ void ofxNode::update()
 	}
 	else
 		position_.y += deltaPos.y;
+
+	cout << id_ << " : " << position_.x << "; " << position_.y << std::endl;
 }
 
 void ofxNode::draw()
