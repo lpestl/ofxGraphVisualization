@@ -3,6 +3,8 @@
 
 void ofxNode::setup(ofRectangle boundRect)
 {
+	tahomaFont_.loadFont("data\\tahoma\\TAHOMABD.ttf", 12);
+
 	boundRect_ = boundRect;
 
 	std::default_random_engine generator(ofGetElapsedTimeMicros());
@@ -54,10 +56,28 @@ void ofxNode::update()
 	else
 		position_.y += deltaPos.y;
 
-	cout << id_ << " : " << position_.x << "; " << position_.y << std::endl;
+	//cout << id_ << " : " << position_.x << "; " << position_.y << std::endl;
 }
 
-void ofxNode::draw()
+void ofxNode::draw(bool isNameVisible)
 {
 	ofDrawCircle(position_.x, position_.y, radius_);
+
+	if (isNameVisible)
+	{
+		ofPushStyle();
+
+		const auto capture = ofToString(id_);
+		const auto textRect = tahomaFont_.getStringBoundingBox(capture, position_.x, position_.y);
+
+		ofSetColor(ofColor::black);
+		tahomaFont_.drawString(ofToString(id_), position_.x - textRect.width / 2, position_.y + textRect.height / 2);
+
+		ofPopStyle();
+	}
+}
+
+ofVec2f ofxNode::getPosition() const
+{
+	return position_;
 }

@@ -21,7 +21,7 @@ void ofxGraph::draw()
 	for (auto&& node : nodes_)
 	{
 		auto ofx_node = std::dynamic_pointer_cast<ofxNode>(node.second);
-		ofx_node->draw();
+		ofx_node->draw(true);
 	}
 }
 

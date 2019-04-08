@@ -31,6 +31,9 @@
 		<ClCompile Include="..\..\..\addons\ofxGraphVisualization\src\ofxNode.cpp">
 			<Filter>addons\ofxGraphVisualization\src</Filter>
 		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxTrueTypeFontUC\src\ofxTrueTypeFontUC.cpp">
+			<Filter>addons\ofxTrueTypeFontUC\src</Filter>
+		</ClCompile>
 	</ItemGroup>
 	<ItemGroup>
 		<Filter Include="src">
@@ -44,6 +47,12 @@
 		</Filter>
 		<Filter Include="addons\ofxGraphVisualization\src">
 			<UniqueIdentifier>{901D70C4-D595-0845-4E94-AA49}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxTrueTypeFontUC">
+			<UniqueIdentifier>{5652952C-1675-EFF8-8E62-5D8C}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxTrueTypeFontUC\src">
+			<UniqueIdentifier>{7E369600-03BF-EEFC-FA92-F38A}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -70,6 +79,9 @@
 		</ClInclude>
 		<ClInclude Include="..\..\..\addons\ofxGraphVisualization\src\ofxNode.h">
 			<Filter>addons\ofxGraphVisualization\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxTrueTypeFontUC\src\ofxTrueTypeFontUC.h">
+			<Filter>addons\ofxTrueTypeFontUC\src</Filter>
 		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>

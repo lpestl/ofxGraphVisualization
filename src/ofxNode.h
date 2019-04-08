@@ -1,10 +1,12 @@
 #pragma once
 
-#include "ofMain.h"
-#include "Node.h"
+#include "ofRectangle.h"
+#include "ofxTrueTypeFontUC.h"
 #include "ofVec2f.h"
+#include "Node.h"
 
-class ofRectangle;
+//class ofRectangle;
+//class ofxTrueTypeFontUC;
 
 class ofxNode : public Node
 {
@@ -17,13 +19,16 @@ public:
 	{	}
 
 	void setup(ofRectangle boundRect);
-	void update() override;
-	void draw() override;
+	void update();
+	void draw(bool isNameVisible = false);
 
+	ofVec2f getPosition() const;
 private:
 	ofRectangle boundRect_;
 	ofVec2f position_;
 	ofVec2f speed_;
 	float radius_;
+
+	ofxTrueTypeFontUC tahomaFont_;
 };
 

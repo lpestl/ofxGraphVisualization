@@ -4,21 +4,7 @@
 void ofApp::setup(){
 	grapph_.setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
 	grapph_.init("data\\edges.csv");
-
-	/*for (auto && matrix : grapph_.adjacency_matrix_)
-	{
-		for (auto && value : grapph_.adjacency_matrix_[matrix.first])
-		{
-			if (value.second == nullptr)
-				std::cout << 0 << " ";
-			else
-				std::cout << value.second.get()->getWeight() << " ";
-		}
-		std::cout << std::endl;
-	}*/
-
-	//node_ = std::make_shared<ofxNode>(1);
-	//node_->setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
+	index_ = 6;
 }
 
 //--------------------------------------------------------------
@@ -37,7 +23,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	grapph_.addNode(++index_);
 }
 
 //--------------------------------------------------------------

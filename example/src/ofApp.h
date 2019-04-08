@@ -26,4 +26,6 @@ class ofApp : public ofBaseApp{
 	private:
 		ofxGraph grapph_;
 		std::shared_ptr<ofxNode> node_;
+
+		int index_;
 };
