@@ -20,7 +20,9 @@
 x64/
 x86/
 bld/
-[Bb]in/
+[Bb]in/*
+[Ee]xample/[Bb]in/*
+!example/bin/data/
 [Oo]bj/
 [Ll]og/
 

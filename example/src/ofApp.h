@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGraph.h"
+#include "ofxNode.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,4 +23,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+	private:
+		ofxGraph grapph_;
+		std::shared_ptr<ofxNode> node_;
+
+		int index_;
 };

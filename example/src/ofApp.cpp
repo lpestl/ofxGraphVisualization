@@ -2,22 +2,29 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+	grapph_.setup(ofRectangle(0, 0, ofGetWindowWidth(), ofGetWindowHeight()));
+	grapph_.init("data\\edges.csv");
+	index_ = 6;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	//node_->update();
+	grapph_.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	ofBackgroundGradient(ofColor(131, 219, 231), ofColor(38, 169, 241));
 
+	//node_->draw();
+	grapph_.draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	//grapph_.addNode(++index_);
+	grapph_.setSpeed(ofVec2f(-100, -100), ofVec2f(100, 100));
 }
 
 //--------------------------------------------------------------
