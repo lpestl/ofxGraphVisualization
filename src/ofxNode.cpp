@@ -7,14 +7,13 @@ void ofxNode::setup(ofRectangle boundRect)
 
 	boundRect_ = boundRect;
 
-	std::default_random_engine generator(ofGetElapsedTimeMicros());
+	/*std::default_random_engine generator(ofGetElapsedTimeMicros());
 
 	std::uniform_int_distribution<int> xRange(static_cast<int>(boundRect_.getMinX()), static_cast<int>(boundRect_.getMaxX()));
 	std::uniform_int_distribution<int> yRange(static_cast<int>(boundRect_.getMinY()), static_cast<int>(boundRect_.getMaxY()));
-	std::uniform_real_distribution<float> speedRange(-100., 100.);
-
-	position_.set(xRange(generator), yRange(generator));
-	speed_.set(speedRange(generator), speedRange(generator));
+	std::uniform_real_distribution<float> speedRange(-100., 100.);*/
+	position_.set(ofRandom(boundRect_.getMinX(), boundRect_.getMaxX()), ofRandom(boundRect_.getMinY(), boundRect_.getMaxY())/*xRange(generator), yRange(generator)*/);
+	speed_.set(0, 0/*speedRange(generator), speedRange(generator)*/);
 }
 
 void ofxNode::update()
@@ -77,7 +76,35 @@ void ofxNode::draw(bool isNameVisible)
 	}
 }
 
+void ofxNode::setPosition(ofVec2f newPos)
+{
+	if (boundRect_.inside(newPos))
+	{
+		position_.set(newPos);
+	}
+}
+
 ofVec2f ofxNode::getPosition() const
 {
 	return position_;
+}
+
+void ofxNode::setSpeed(ofVec2f newSpeed)
+{
+	speed_.set(newSpeed);
+}
+
+ofVec2f ofxNode::getSpeed() const
+{
+	return speed_;
+}
+
+void ofxNode::setRadius(float radius)
+{
+	radius_ = radius;
+}
+
+float ofxNode::getRadius() const
+{
+	return radius_;
 }

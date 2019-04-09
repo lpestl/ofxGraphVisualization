@@ -7,6 +7,10 @@ void ofxEdge::setup()
 
 }
 
+//void ofxEdge::update()
+//{
+//}
+
 void ofxEdge::draw(bool isWeightVisible)
 {
 	const auto srcNode = std::dynamic_pointer_cast<ofxNode>(sourceNode_);
@@ -20,8 +24,11 @@ void ofxEdge::draw(bool isWeightVisible)
 
 		if (isWeightVisible)
 		{
-			auto len = ofVec2f(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+			ofPushStyle();
+			ofSetColor(ofColor::black);
+			const auto len = ofVec2f(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
 			font_.drawString(ofToString(weight_), startPoint.x + len.x / 3 * 2, startPoint.y + len.y / 3 * 2);
+			ofPopStyle();
 		}
 	}
 }

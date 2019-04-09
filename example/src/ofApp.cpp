@@ -23,7 +23,8 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	grapph_.addNode(++index_);
+	//grapph_.addNode(++index_);
+	grapph_.setSpeed(ofVec2f(-100, -100), ofVec2f(100, 100));
 }
 
 //--------------------------------------------------------------

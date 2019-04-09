@@ -1,6 +1,9 @@
 #pragma once
+
 #include "Graph.h"
 #include "ofRectangle.h"
+
+class ofVec2f;
 
 class ofxGraph : public Graph
 {
@@ -9,7 +12,9 @@ public:
 	void update();
 	void draw();
 
-protected:
+	void deleteEdge(unsigned from, unsigned to) override;
+	void setSpeed(ofVec2f from, ofVec2f to);
+private:
 	void createNodeInstance(unsigned id) override;
 	void createEdgeInstance(unsigned from, unsigned to, int weight) override;
 

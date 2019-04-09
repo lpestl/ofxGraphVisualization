@@ -9,7 +9,7 @@ class Edge
 {
 public:
 	Edge(std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int weight);
-	~Edge();	
+	virtual ~Edge();	
 
 	unsigned getSourceNodeId() const;
 	unsigned getDestNodeId() const;

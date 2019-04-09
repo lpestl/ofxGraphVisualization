@@ -6,7 +6,7 @@
 class ofxEdge : public Edge
 {
 public:
-	ofxEdge(std::shared_ptr<Node>& srcNode, std::shared_ptr<Node>& dstNode, int weight)
+	explicit ofxEdge(std::shared_ptr<Node>& srcNode, std::shared_ptr<Node>& dstNode, int weight)
 		: Edge(srcNode, dstNode, weight)
 	{
 	}

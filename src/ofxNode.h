@@ -22,7 +22,14 @@ public:
 	void update();
 	void draw(bool isNameVisible = false);
 
+	void setPosition(ofVec2f newPos);
 	ofVec2f getPosition() const;
+
+	void setSpeed(ofVec2f newSpeed);
+	ofVec2f getSpeed() const;
+
+	void setRadius(float radius);
+	float getRadius() const;
 private:
 	ofRectangle boundRect_;
 	ofVec2f position_;

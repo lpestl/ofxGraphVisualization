@@ -17,7 +17,7 @@ public:
 	void deleteNode(unsigned id);
 
 	void addEdge(unsigned from, unsigned to, int weight);
-	void deleteEdge(unsigned from, unsigned to);
+	virtual void deleteEdge(unsigned from, unsigned to);
 
 	size_t getInEdgesCount(unsigned node_id);
 	size_t getOutEdgesCount(unsigned node_id);
