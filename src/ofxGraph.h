@@ -21,12 +21,13 @@ public:
 
 	void showEdgeCapture();
 	void hideEdgeCapture();
+
 private:
 	void createNodeInstance(unsigned id) override;
 	void createEdgeInstance(unsigned from, unsigned to, int weight) override;
 
-	bool nodeCaptureShowed_;
-	bool edgeCaptureShowed_;
+	bool nodeCaptureShowed_ = true;
+	bool edgeCaptureShowed_ = false;
 
 	std::shared_ptr<ofRectangle> boundRect_;
 	std::shared_ptr<ofxTrueTypeFontUC> nodeCaptureFont_;

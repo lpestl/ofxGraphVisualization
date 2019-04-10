@@ -6,14 +6,11 @@ void ofxGraph::setup(ofRectangle boundRect)
 {
 	boundRect_ = std::make_shared<ofRectangle>(boundRect);
 
-	nodeCaptureShowed_ = true;
-	edgeCaptureShowed_ = false;
-
 	nodeCaptureFont_ = std::make_shared<ofxTrueTypeFontUC>();
 	edgeCaptureFont_ = std::make_shared<ofxTrueTypeFontUC>();
 
-	nodeCaptureFont_->loadFont("data\\tahoma\\TAHOMABD.ttf", 12);
-	edgeCaptureFont_->loadFont("data\\tahoma\\TAHOMABD.ttf", 10);
+	nodeCaptureFont_->loadFont("data\\fonts\\TAHOMABD.ttf", 12);
+	edgeCaptureFont_->loadFont("data\\fonts\\TAHOMABD.ttf", 10);
 }
 
 void ofxGraph::update()
