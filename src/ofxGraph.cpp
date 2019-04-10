@@ -100,6 +100,37 @@ void ofxGraph::hideEdgeCapture()
 	edgeCaptureShowed_ = false;
 }
 
+int ofxGraph::getNodesCount()
+{
+	return nodes_.count;
+}
+
+int ofxGraph::getMaxEdgesCount()
+{
+	return nodes_.count* (nodes_.count - 1);
+}
+
+int ofxGraph::getCurrEdgesCount()
+{
+	int count = 0;
+
+	for (auto && pair : adjacency_matrix_)
+	{
+		for (auto && value : pair.second)
+		{
+			if (value.second != nullptr)
+				count++;
+		}
+	}
+
+	return count;
+}
+
+float ofxGraph::getNetworkDensity()
+{
+	return static_cast<float>(getCurrEdgesCount()) / static_cast<float>(getMaxEdgesCount());
+}
+
 void ofxGraph::createNodeInstance(unsigned id)
 {
 	auto newNode = std::make_shared<ofxNode>(id);
