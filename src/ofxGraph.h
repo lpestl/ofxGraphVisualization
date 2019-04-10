@@ -21,17 +21,7 @@ public:
 
 	void showEdgeCapture();
 	void hideEdgeCapture();
-
-	// TODO: Methods
-	// Количество вершин
-	int getNodesCount();
-	// Количество всего возможных рёбер
-	int getMaxEdgesCount();
-	// Количество наблюдаемых рёбер (в данный момент)
-	int getCurrEdgesCount();
-	// Подсчет сетевой плотности
-	float getNetworkDensity();
-
+	
 private:
 	void createNodeInstance(unsigned id) override;
 	void createEdgeInstance(unsigned from, unsigned to, int weight) override;

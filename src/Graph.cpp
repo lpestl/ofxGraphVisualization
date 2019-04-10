@@ -169,6 +169,32 @@ size_t Graph::getOutEdgesCount(unsigned node_id)
 	return count;
 }
 
+int Graph::getNodesCount() const
+{
+	return nodes_.size();
+}
+
+int Graph::getMaxEdgesCount() const
+{
+	return nodes_.size() * (nodes_.size() - 1);
+}
+
+int Graph::getCurrEdgesCount()
+{
+	int count = 0;
+	for (auto && pair : adjacency_matrix_)
+		for (auto && value : pair.second)
+			if (value.second != nullptr)
+				count++;
+
+	return count;
+}
+
+float Graph::getNetworkDensity()
+{
+	return static_cast<float>(getCurrEdgesCount()) / static_cast<float>(getMaxEdgesCount());
+}
+
 void Graph::createNodeInstance(unsigned id)
 {
 	nodes_[id] = std::make_shared<Node>(id);

@@ -22,6 +22,16 @@ public:
 	size_t getInEdgesCount(unsigned node_id);
 	size_t getOutEdgesCount(unsigned node_id);
 
+	// TODO: Methods
+	// Количество вершин
+	int getNodesCount() const;
+	// Количество всего возможных рёбер
+	int getMaxEdgesCount() const;
+	// Количество наблюдаемых рёбер (в данный момент)
+	int getCurrEdgesCount();
+	// Подсчет сетевой плотности
+	float getNetworkDensity();
+
 protected:
 	virtual void createNodeInstance(unsigned id);
 	virtual void createEdgeInstance(unsigned from, unsigned to, int weight);
