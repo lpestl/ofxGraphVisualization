@@ -6,6 +6,9 @@ void ofxGraph::setup(ofRectangle boundRect)
 {
 	boundRect_ = std::make_shared<ofRectangle>(boundRect);
 
+	nodeCaptureShowed_ = true;
+	edgeCaptureShowed_ = false;
+
 	nodeCaptureFont_ = std::make_shared<ofxTrueTypeFontUC>();
 	edgeCaptureFont_ = std::make_shared<ofxTrueTypeFontUC>();
 
@@ -44,7 +47,7 @@ void ofxGraph::draw()
 			if (pairEdge.second != nullptr) 
 			{
 				auto ofx_edge = std::dynamic_pointer_cast<ofxEdge>(pairEdge.second);
-				ofx_edge->draw(true);
+				ofx_edge->draw(edgeCaptureShowed_);
 			}
 		}
 	}
@@ -53,7 +56,7 @@ void ofxGraph::draw()
 	for (auto&& node : nodes_)
 	{
 		auto ofx_node = std::dynamic_pointer_cast<ofxNode>(node.second);
-		ofx_node->draw(true);
+		ofx_node->draw(nodeCaptureShowed_);
 	}
 }
 
@@ -78,6 +81,26 @@ void ofxGraph::setSpeed(ofVec2f from, ofVec2f to)
 		auto ofx_node = std::dynamic_pointer_cast<ofxNode>(node.second);
 		ofx_node->setSpeed(ofVec2f(ofRandom(from.x, to.x), ofRandom(from.y, to.y)));
 	}
+}
+
+void ofxGraph::showNodeCapture()
+{
+	nodeCaptureShowed_ = true;
+}
+
+void ofxGraph::hideNodeCapture()
+{
+	nodeCaptureShowed_ = false;
+}
+
+void ofxGraph::showEdgeCapture()
+{
+	edgeCaptureShowed_ = true;
+}
+
+void ofxGraph::hideEdgeCapture()
+{
+	edgeCaptureShowed_ = false;
 }
 
 void ofxGraph::createNodeInstance(unsigned id)
