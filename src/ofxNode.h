@@ -5,20 +5,18 @@
 #include "ofVec2f.h"
 #include "Node.h"
 
-//class ofRectangle;
-//class ofxTrueTypeFontUC;
-
 class ofxNode : public Node
 {
 public:
 	explicit ofxNode(unsigned id) : Node(id),
-		boundRect_(0,0,0,0),
+		boundRect_(nullptr),
+		captureFont_(nullptr),
 		position_(0,0),
 		speed_(0,0),
 		radius_(10)
 	{	}
 
-	void setup(ofRectangle boundRect);
+	void setup(std::shared_ptr<ofRectangle> boundRect, std::shared_ptr<ofxTrueTypeFontUC> font);
 	void update();
 	void draw(bool isNameVisible = false);
 
@@ -30,12 +28,15 @@ public:
 
 	void setRadius(float radius);
 	float getRadius() const;
+
 private:
-	ofRectangle boundRect_;
+	void updatePosition();
+
 	ofVec2f position_;
 	ofVec2f speed_;
 	float radius_;
 
-	ofxTrueTypeFontUC tahomaFont_;
+	std::shared_ptr<ofRectangle> boundRect_;
+	std::shared_ptr<ofxTrueTypeFontUC> captureFont_;
 };
 

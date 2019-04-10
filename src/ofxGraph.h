@@ -2,6 +2,7 @@
 
 #include "Graph.h"
 #include "ofRectangle.h"
+#include "ofxTrueTypeFontUC.h"
 
 class ofVec2f;
 
@@ -18,5 +19,7 @@ private:
 	void createNodeInstance(unsigned id) override;
 	void createEdgeInstance(unsigned from, unsigned to, int weight) override;
 
-	ofRectangle boundRect_;
+	std::shared_ptr<ofRectangle> boundRect_;
+	std::shared_ptr<ofxTrueTypeFontUC> nodeCaptureFont_;
+	std::shared_ptr<ofxTrueTypeFontUC> edgeCaptureFont_;
 };

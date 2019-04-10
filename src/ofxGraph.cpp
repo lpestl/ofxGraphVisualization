@@ -4,7 +4,13 @@
 
 void ofxGraph::setup(ofRectangle boundRect)
 {
-	boundRect_ = boundRect;
+	boundRect_ = std::make_shared<ofRectangle>(boundRect);
+
+	nodeCaptureFont_ = std::make_shared<ofxTrueTypeFontUC>();
+	edgeCaptureFont_ = std::make_shared<ofxTrueTypeFontUC>();
+
+	nodeCaptureFont_->loadFont("data\\tahoma\\TAHOMABD.ttf", 12);
+	edgeCaptureFont_->loadFont("data\\tahoma\\TAHOMABD.ttf", 10);
 }
 
 void ofxGraph::update()
@@ -63,7 +69,7 @@ void ofxGraph::setSpeed(ofVec2f from, ofVec2f to)
 void ofxGraph::createNodeInstance(unsigned id)
 {
 	auto newNode = std::make_shared<ofxNode>(id);
-	newNode->setup(boundRect_);
+	newNode->setup(boundRect_, nodeCaptureFont_);
 
 	nodes_[id] = newNode;
 	
