@@ -15,6 +15,18 @@ void ofxGraph::setup(ofRectangle boundRect)
 
 void ofxGraph::update()
 {
+	for (auto&& linePair : adjacency_matrix_)
+	{
+		for (auto&& pairEdge : adjacency_matrix_[linePair.first])
+		{
+			if (pairEdge.second != nullptr)
+			{
+				auto ofx_edge = std::dynamic_pointer_cast<ofxEdge>(pairEdge.second);
+				ofx_edge->update();
+			}
+		}
+	}
+
 	for (auto && node : nodes_)
 	{
 		auto ofx_node = std::dynamic_pointer_cast<ofxNode>(node.second);
@@ -24,6 +36,7 @@ void ofxGraph::update()
 
 void ofxGraph::draw()
 {
+	ofSetColor(ofColor::black);
 	for (auto && linePair : adjacency_matrix_)
 	{
 		for (auto && pairEdge : adjacency_matrix_[linePair.first])
@@ -31,11 +44,12 @@ void ofxGraph::draw()
 			if (pairEdge.second != nullptr) 
 			{
 				auto ofx_edge = std::dynamic_pointer_cast<ofxEdge>(pairEdge.second);
-				ofx_edge->draw();
+				ofx_edge->draw(true);
 			}
 		}
 	}
 
+	ofSetColor(ofColor::white);
 	for (auto&& node : nodes_)
 	{
 		auto ofx_node = std::dynamic_pointer_cast<ofxNode>(node.second);
@@ -78,7 +92,7 @@ void ofxGraph::createNodeInstance(unsigned id)
 void ofxGraph::createEdgeInstance(unsigned from, unsigned to, int weight)
 {
 	auto newEdge = std::make_shared<ofxEdge>(nodes_[from], nodes_[to], weight);
-	newEdge->setup();
+	newEdge->setup(edgeCaptureFont_);
 	
 	auto ofx_from_node = std::dynamic_pointer_cast<ofxNode>(nodes_[from]);
 	ofx_from_node->setRadius(ofx_from_node->getRadius() + 1);
