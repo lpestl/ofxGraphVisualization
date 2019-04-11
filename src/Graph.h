@@ -9,9 +9,12 @@ class Graph
 {
 public:
 	Graph();
+	Graph(const Graph& graph);
 	virtual ~Graph();
 
 	void init(std::string path_to_file);
+	void init(unsigned nodesCount, unsigned edgesCount);
+	void clear();
 
 	void addNode(unsigned id);
 	void deleteNode(unsigned id);
@@ -21,6 +24,13 @@ public:
 
 	size_t getInEdgesCount(unsigned node_id);
 	size_t getOutEdgesCount(unsigned node_id);
+
+	// TODO: Methods
+	int getNodesCount() const;
+	int getMaxEdgesCount() const;
+	int getCurrEdgesCount();
+
+	float getNetworkDensity();
 
 protected:
 	virtual void createNodeInstance(unsigned id);

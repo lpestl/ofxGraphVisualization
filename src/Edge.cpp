@@ -8,6 +8,12 @@ Edge::Edge(std::shared_ptr<Node> srcNode, std::shared_ptr<Node> dstNode, int wei
 	weight_ = weight;
 }
 
+Edge::Edge(const Edge& edge, std::shared_ptr<Node> copySrcNode, std::shared_ptr<Node> copyDstNode)
+{
+	this->weight_ = edge.weight_;
+	this->sourceNode_ = copySrcNode;
+	this->destNode_ = copyDstNode;
+}
 
 Edge::~Edge()
 {
