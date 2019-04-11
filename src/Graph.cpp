@@ -7,6 +7,29 @@ Graph::Graph()
 {
 }
 
+Graph::Graph(const Graph& graph)
+{
+	for (auto && node : graph.nodes_)
+	{
+		this->nodes_[node.first] = std::make_shared<Node>(*node.second.get());
+	}
+
+	for (auto && linePair : graph.adjacency_matrix_)
+	{
+		std::map<unsigned, std::shared_ptr<Edge>> copyLine;
+
+		for (auto && pair : linePair.second)
+		{
+			if (pair.second != nullptr)
+				copyLine[pair.first] = std::make_shared<Edge>(*pair.second.get(), this->nodes_[pair.second->getSourceNodeId()], this->nodes_[pair.second->getDestNodeId()]);
+			else
+				copyLine[pair.first] = nullptr;
+		}
+
+		this->adjacency_matrix_[linePair.first] = copyLine;
+	}
+}
+
 Graph::~Graph()
 {
 }

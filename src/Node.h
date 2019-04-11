@@ -4,6 +4,7 @@ class Node
 {
 public:
 	Node(unsigned id);
+	Node(const Node& node);
 	virtual ~Node();
 	
 	unsigned getId() const;

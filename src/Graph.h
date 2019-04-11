@@ -9,6 +9,7 @@ class Graph
 {
 public:
 	Graph();
+	Graph(const Graph& graph);
 	virtual ~Graph();
 
 	void init(std::string path_to_file);
@@ -23,13 +24,10 @@ public:
 	size_t getOutEdgesCount(unsigned node_id);
 
 	// TODO: Methods
-	// Количество вершин
 	int getNodesCount() const;
-	// Количество всего возможных рёбер
 	int getMaxEdgesCount() const;
-	// Количество наблюдаемых рёбер (в данный момент)
 	int getCurrEdgesCount();
-	// Подсчет сетевой плотности
+
 	float getNetworkDensity();
 
 protected:
