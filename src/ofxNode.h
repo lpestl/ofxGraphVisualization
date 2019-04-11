@@ -9,11 +9,12 @@ class ofxNode : public Node
 {
 public:
 	explicit ofxNode(unsigned id) : Node(id),
-		boundRect_(nullptr),
-		captureFont_(nullptr),
 		position_(0,0),
 		speed_(0,0),
-		radius_(10)
+		radius_(10),
+		targetRadius_(10),
+		boundRect_(nullptr),
+		captureFont_(nullptr)
 	{	}
 
 	void setup(std::shared_ptr<ofRectangle> boundRect, std::shared_ptr<ofxTrueTypeFontUC> font);
@@ -28,13 +29,14 @@ public:
 
 	void setRadius(float radius);
 	float getRadius() const;
+	float getTargetRadius() const;
 
 private:
 	void updatePosition();
 
 	ofVec2f position_;
 	ofVec2f speed_;
-	float radius_;
+	float radius_, targetRadius_;
 
 	std::shared_ptr<ofRectangle> boundRect_;
 	std::shared_ptr<ofxTrueTypeFontUC> captureFont_;

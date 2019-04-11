@@ -1,5 +1,6 @@
 #include "ofxNode.h"
 #include <random>
+#include "ofxTweener.h"
 
 void ofxNode::setup(std::shared_ptr<ofRectangle> boundRect, std::shared_ptr<ofxTrueTypeFontUC> font)
 {
@@ -65,12 +66,19 @@ ofVec2f ofxNode::getSpeed() const
 
 void ofxNode::setRadius(float radius)
 {
-	radius_ = radius;
+	targetRadius_ = radius;
+	//radius_ = radius;
+	Tweener.addTween(radius_, targetRadius_, 0.5);
 }
 
 float ofxNode::getRadius() const
 {
 	return radius_;
+}
+
+float ofxNode::getTargetRadius() const
+{
+	return targetRadius_;
 }
 
 void ofxNode::updatePosition()

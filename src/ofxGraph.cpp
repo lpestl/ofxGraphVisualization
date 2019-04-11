@@ -61,14 +61,20 @@ void ofxGraph::deleteEdge(unsigned from, unsigned to)
 {
 	auto ofx_from_node = std::dynamic_pointer_cast<ofxNode>(nodes_[from]);
 	auto ofx_to_node = std::dynamic_pointer_cast<ofxNode>(nodes_[to]);
-	
-	auto radius = ofx_from_node->getRadius();	
-	ofx_from_node->setRadius(radius - 1);
 
-	radius = ofx_to_node->getRadius();
-	ofx_to_node->setRadius(radius - 1);
+	if ((ofx_from_node == nullptr) || (ofx_to_node == nullptr))
+		return;
 
-	Graph::deleteEdge(from, to);
+	if (adjacency_matrix_[from][to] != nullptr) 
+	{
+		auto radius = ofx_from_node->getTargetRadius();
+		ofx_from_node->setRadius(radius - 1);
+
+		radius = ofx_to_node->getTargetRadius();
+		ofx_to_node->setRadius(radius - 1);
+
+		Graph::deleteEdge(from, to);
+	}	
 }
 
 void ofxGraph::setSpeed(ofVec2f from, ofVec2f to)
@@ -115,10 +121,10 @@ void ofxGraph::createEdgeInstance(unsigned from, unsigned to, int weight)
 	newEdge->setup(edgeCaptureFont_);
 	
 	auto ofx_from_node = std::dynamic_pointer_cast<ofxNode>(nodes_[from]);
-	ofx_from_node->setRadius(ofx_from_node->getRadius() + 1);
+	ofx_from_node->setRadius(ofx_from_node->getTargetRadius() + 1);
 	
 	auto ofx_to_node = std::dynamic_pointer_cast<ofxNode>(nodes_[to]);
-	ofx_to_node->setRadius(ofx_to_node->getRadius() + 1);
+	ofx_to_node->setRadius(ofx_to_node->getTargetRadius() + 1);
 
 	adjacency_matrix_[from][to] = newEdge;
 }
