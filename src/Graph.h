@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <map>
 #include "Node.h"
 #include "Edge.h"
@@ -26,11 +26,19 @@ public:
 	size_t getOutEdgesCount(unsigned node_id);
 
 	// TODO: Methods
+	// V - The number of vertices (Nodes) in the graph
 	int getNodesCount() const;
+	// A - The possible number of edges in the graph
 	int getMaxEdgesCount() const;
+	// S - The number of observed connections (edges)
 	int getCurrEdgesCount();
 
+	// ∆ - is the network density
 	float getNetworkDensity();
+
+	// Fi - An array of forces of influence verticles (Nodes).
+	std::vector<float> getForces();
+
 
 protected:
 	virtual void createNodeInstance(unsigned id);

@@ -1,4 +1,4 @@
-#include "Graph.h"
+﻿#include "Graph.h"
 #include "ofFileUtils.h"
 #include <sstream>
 #include "ofLog.h"
@@ -284,16 +284,21 @@ size_t Graph::getOutEdgesCount(unsigned node_id)
 	return count;
 }
 
+// V - The number of vertices in the graph
 int Graph::getNodesCount() const
 {
+	// V
 	return nodes_.size();
 }
 
+// A - The possible number of edges in the graph
 int Graph::getMaxEdgesCount() const
 {
+	// A = V * (V-1)
 	return nodes_.size() * (nodes_.size() - 1);
 }
 
+// S - The number of observed connections (edges)
 int Graph::getCurrEdgesCount()
 {
 	int count = 0;
@@ -301,13 +306,39 @@ int Graph::getCurrEdgesCount()
 		for (auto && value : pair.second)
 			if (value.second != nullptr)
 				count++;
-
+	// S
 	return count;
 }
 
+// ∆ - is the network density
 float Graph::getNetworkDensity()
 {
+	// ∆ = S / (V * (V-1))
 	return static_cast<float>(getCurrEdgesCount()) / static_cast<float>(getMaxEdgesCount());
+}
+
+// Fi - An array of forces of influence verticles (Nodes).
+std::vector<float> Graph::getForces()
+{
+	// Fi
+	std::vector<float> forces;
+	// i
+	for (auto && nodePair : nodes_)
+	{
+		// bs - Sum(bi) output edges count
+		auto bs = 0;
+		for (auto && columnValuePair : adjacency_matrix_[nodePair.first])
+		{
+			if (columnValuePair.second != nullptr)
+				bs++;
+		}
+
+		// Fi = S / A * (Sum(bi))
+		forces.push_back(getNetworkDensity() * bs);
+	}
+
+	// Fi array
+	return forces;
 }
 
 void Graph::createNodeInstance(unsigned id)
