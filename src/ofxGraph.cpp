@@ -1,6 +1,7 @@
 #include "ofxGraph.h"
 #include "ofxNode.h"
 #include "ofxEdge.h"
+#include <random>
 
 void ofxGraph::setup(ofRectangle boundRect)
 {
@@ -104,6 +105,70 @@ void ofxGraph::showEdgeCapture()
 void ofxGraph::hideEdgeCapture()
 {
 	edgeCaptureShowed_ = false;
+}
+
+void ofxGraph::updateRandomEdge()
+{
+	auto edgeCount = getCurrEdgesCount();
+	int isAddingEdge = ofRandom(2);
+
+	if (edgeCount == 0)
+		isAddingEdge = 1;
+	if (edgeCount >= getMaxEdgesCount())
+		isAddingEdge = 0;
+
+
+	std::vector<unsigned> from;
+	std::vector<unsigned> to;
+	for (auto && node : nodes_)
+	{
+		from.push_back(node.second->getId());
+		to.push_back(node.second->getId());
+	}
+
+	//bool done = false;
+
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::shuffle(from.begin(), from.end(), std::default_random_engine(seed));
+	std::shuffle(to.begin(), to.end(), std::default_random_engine(seed));
+
+	if (isAddingEdge)
+	{
+		bool isAdded = false;
+		for (auto && fromValue : from)
+		{
+			for (auto && toValue : to)
+			{
+				if ((fromValue != toValue) && (adjacency_matrix_[fromValue][toValue] == nullptr))
+				{
+					addEdge(fromValue, toValue, 1);
+					isAdded = true;
+					break;
+				}
+			}
+
+			if (isAdded)
+				break;
+		}
+	} else
+	{
+		bool isDeleted = false;
+		for (auto&& fromValue : from)
+		{
+			for (auto&& toValue : to)
+			{
+				if (/*(fromValue != toValue) &&*/ (adjacency_matrix_[fromValue][toValue] != nullptr))
+				{
+					deleteEdge(fromValue, toValue);
+					isDeleted = true;
+					break;
+				}
+			}
+
+			if (isDeleted)
+				break;
+		}
+	}
 }
 
 void ofxGraph::createNodeInstance(unsigned id)

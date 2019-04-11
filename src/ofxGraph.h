@@ -21,7 +21,9 @@ public:
 
 	void showEdgeCapture();
 	void hideEdgeCapture();
-	
+
+	void updateRandomEdge();
+
 private:
 	void createNodeInstance(unsigned id) override;
 	void createEdgeInstance(unsigned from, unsigned to, int weight) override;
