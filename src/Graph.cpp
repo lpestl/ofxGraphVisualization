@@ -2,6 +2,9 @@
 #include "ofFileUtils.h"
 #include <sstream>
 #include "ofLog.h"
+#include <algorithm>    // std::shuffle
+#include <random>       // std::default_random_engine
+#include <chrono>       // std::chrono::system_clock
 
 Graph::Graph()
 {
@@ -77,10 +80,99 @@ void Graph::init(std::string path_to_file)
 		addNode(values[0]);
 		addNode(values[1]);
 		
-		// We use both direction graph
 		addEdge(values[0], values[1], values[2]);
-		//addEdge(values[1], values[0], values[2]);
 	}
+}
+
+void Graph::init(unsigned nodesCount, unsigned edgesCount)
+{
+	for (unsigned i = 1; i <= nodesCount; ++i)
+		createNodeInstance(i);
+	
+	std::vector<unsigned> from;
+	std::vector<unsigned> to;
+	for (unsigned i = 1; i <= nodesCount; ++i)
+	{
+		from.push_back(i);
+		to.push_back(i);
+	}
+
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+	if (edgesCount < getMaxEdgesCount() / 2)
+	{
+		unsigned count = 0;
+		
+		while (count < edgesCount)
+		{
+			std::shuffle(from.begin(), from.end(), std::default_random_engine(seed));
+			std::shuffle(to.begin(), to.end(), std::default_random_engine(seed));
+
+			for (auto && valueFrom : from)
+			{
+				bool isAdded = false;
+				for (auto && valueTo : to)
+				{
+					if ((adjacency_matrix_[valueFrom][valueTo] == nullptr) && (valueFrom != valueTo))
+					{
+						createEdgeInstance(valueFrom, valueTo, 1);
+						isAdded = true;
+						count++;
+						break;
+					}
+				}
+				if (isAdded)
+					break;
+			}
+		}
+	} else
+	{
+		for (auto && valueFrom : from)
+			for (auto && valueTo : to)
+				if (valueFrom != valueTo)
+					createEdgeInstance(valueFrom, valueTo, 1);
+
+		unsigned count = getMaxEdgesCount();
+
+		while (count > edgesCount)
+		{
+			std::shuffle(from.begin(), from.end(), std::default_random_engine(seed));
+			std::shuffle(to.begin(), to.end(), std::default_random_engine(seed));
+
+			for (auto&& valueFrom : from)
+			{
+				bool isDeleted = false;
+				for (auto&& valueTo : to)
+				{
+					if (adjacency_matrix_[valueFrom][valueTo] != nullptr)
+					{
+						deleteEdge(valueFrom, valueTo);
+						isDeleted = true;
+						count--;
+						break;
+					}
+				}
+				if (isDeleted)
+					break;
+			}
+		}
+	}
+}
+
+void Graph::clear()
+{
+	for (auto && linePair : adjacency_matrix_)
+	{
+		for (auto && value : adjacency_matrix_[linePair.first])
+		{
+			value.second = nullptr;
+		}
+
+		adjacency_matrix_[linePair.first].clear();
+	}
+	adjacency_matrix_.clear();
+
+	nodes_.clear();
 }
 
 void Graph::addNode(unsigned id)

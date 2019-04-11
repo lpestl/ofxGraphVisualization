@@ -13,6 +13,8 @@ public:
 	virtual ~Graph();
 
 	void init(std::string path_to_file);
+	void init(unsigned nodesCount, unsigned edgesCount);
+	void clear();
 
 	void addNode(unsigned id);
 	void deleteNode(unsigned id);
