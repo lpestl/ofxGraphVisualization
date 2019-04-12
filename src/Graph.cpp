@@ -209,6 +209,16 @@ void Graph::deleteNode(unsigned id)
 	nodes_.erase(id);
 }
 
+std::vector<unsigned> Graph::getNodesIds()
+{
+	std::vector<unsigned> ids;
+
+	for (auto && pair : nodes_)
+		ids.push_back(pair.second->getId());
+
+	return ids;
+}
+
 void Graph::addEdge(unsigned from, unsigned to, int weight)
 {
 	if (nodes_.find(from) == nodes_.end())
@@ -339,6 +349,83 @@ std::vector<float> Graph::getForces()
 
 	// Fi array
 	return forces;
+}
+
+std::map<unsigned, float> Graph::getAmountInfos()
+{
+	std::map<unsigned, float> amounts;
+
+	auto inProbs = getInputProbabilities();
+	auto outProbs = getOutputProbabilities();
+	   
+	for (auto && nodePair : nodes_)
+	{
+		auto m = getInEdgesCount(nodePair.first);
+		auto n = getOutEdgesCount(nodePair.first);
+
+		float I = 0;
+		// Ii(X,Y) = - SUM j..n ( SUM i..m ( p(Xi,Yj) ) * Log2 ( SUM i..m ( P(Xi, Yj) ) ) )
+		float sumJN = 0;
+		for (auto j = 0; j < n; ++j)
+		{
+			float sumIM = 0;
+			for (auto i = 0; i < m; ++i)
+			{
+				// P(Xi, Yj) = P(Xi) * P(Yj)
+				auto p = inProbs[nodePair.first] * outProbs[nodePair.first];
+				sumIM += p;
+			}
+
+			sumJN += sumIM * std::log2f(sumIM);
+		}
+		I = -sumJN;
+		//			 + SUM i..m ( SUM j..n ( P(Xi,Yj) ) * Log2 ( P (Xi, Yj) / SUM j..n (P(Xi, Yj)) ) )			
+		float sumIM = 0;
+		for (auto i = 0; i < m; ++i)
+		{
+			sumJN = 0;
+			for (auto j =0; j < n; ++j)
+			{
+				// P(Xi, Yj) = P(Xi) * P(Yj)
+				auto p = inProbs[nodePair.first] * outProbs[nodePair.first];
+				sumJN += p;
+			}
+
+			sumIM += sumJN * std::log2f(inProbs[nodePair.first] * outProbs[nodePair.first] / sumJN);
+		}
+
+		I += sumIM;
+
+		amounts[nodePair.first] = I;
+	}
+
+	return amounts;
+}
+
+// P(x)  - probability of communication
+std::map<unsigned, float> Graph::getInputProbabilities()
+{
+	std::map<unsigned, float> probabilities;
+
+	for (auto && nodePair : nodes_)
+	{
+		/*auto inCount = getInEdgesCount(nodePair.first);*/
+		probabilities[nodePair.first] = 1. /*- static_cast<float>(inCount)*/ / (nodes_.size() - 1);
+	}
+	return probabilities;
+}
+
+// P(y) - probability of communication
+std::map<unsigned, float> Graph::getOutputProbabilities()
+{
+	std::map<unsigned, float> probabilities;
+
+	for (auto&& nodePair : nodes_)
+	{
+		/*auto outCount = getOutEdgesCount(nodePair.first);*/
+		probabilities[nodePair.first] = 1. /*- static_cast<float>(outCount)*/ / (nodes_.size() - 1);
+	}
+	return probabilities;
 }
 
 void Graph::createNodeInstance(unsigned id)
