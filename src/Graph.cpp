@@ -351,6 +351,7 @@ std::vector<float> Graph::getForces()
 	return forces;
 }
 
+// I(X,Y) = H(X) - H(Y/X) = ...
 std::map<unsigned, float> Graph::getAmountInfos()
 {
 	std::map<unsigned, float> amounts;
