@@ -376,8 +376,10 @@ std::map<unsigned, float> Graph::getAmountInfos()
 				auto p = inProbs[nodePair.first] * outProbs[nodePair.first];
 				sumIM += p;
 			}
-
-			sumJN += sumIM * std::log2f(sumIM);
+			if (m > 0)
+				sumJN += sumIM * std::log2f(sumIM);
+			else
+				sumJN += 0;
 		}
 		I = -sumJN;
 		//			 + SUM i..m ( SUM j..n ( P(Xi,Yj) ) * Log2 ( P (Xi, Yj) / SUM j..n (P(Xi, Yj)) ) )			
@@ -392,7 +394,10 @@ std::map<unsigned, float> Graph::getAmountInfos()
 				sumJN += p;
 			}
 
-			sumIM += sumJN * std::log2f(inProbs[nodePair.first] * outProbs[nodePair.first] / sumJN);
+			if (n > 0)
+				sumIM += sumJN * std::log2f(inProbs[nodePair.first] * outProbs[nodePair.first] / sumJN);
+			else
+				sumIM += 0;
 		}
 
 		I += sumIM;
