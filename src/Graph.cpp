@@ -1,4 +1,4 @@
-#include "Graph.h"
+﻿#include "Graph.h"
 #include "ofFileUtils.h"
 #include <sstream>
 #include "ofLog.h"
@@ -209,6 +209,16 @@ void Graph::deleteNode(unsigned id)
 	nodes_.erase(id);
 }
 
+std::vector<unsigned> Graph::getNodesIds()
+{
+	std::vector<unsigned> ids;
+
+	for (auto && pair : nodes_)
+		ids.push_back(pair.second->getId());
+
+	return ids;
+}
+
 void Graph::addEdge(unsigned from, unsigned to, int weight)
 {
 	if (nodes_.find(from) == nodes_.end())
@@ -284,16 +294,21 @@ size_t Graph::getOutEdgesCount(unsigned node_id)
 	return count;
 }
 
+// V - The number of vertices in the graph
 int Graph::getNodesCount() const
 {
+	// V
 	return nodes_.size();
 }
 
+// A - The possible number of edges in the graph
 int Graph::getMaxEdgesCount() const
 {
+	// A = V * (V-1)
 	return nodes_.size() * (nodes_.size() - 1);
 }
 
+// S - The number of observed connections (edges)
 int Graph::getCurrEdgesCount()
 {
 	int count = 0;
@@ -301,13 +316,122 @@ int Graph::getCurrEdgesCount()
 		for (auto && value : pair.second)
 			if (value.second != nullptr)
 				count++;
-
+	// S
 	return count;
 }
 
+// ∆ - is the network density
 float Graph::getNetworkDensity()
 {
+	// ∆ = S / (V * (V-1))
 	return static_cast<float>(getCurrEdgesCount()) / static_cast<float>(getMaxEdgesCount());
+}
+
+// Fi - An array of forces of influence verticles (Nodes).
+std::vector<float> Graph::getForces()
+{
+	// Fi
+	std::vector<float> forces;
+	// i
+	for (auto && nodePair : nodes_)
+	{
+		// bs - Sum(bi) output edges count
+		auto bs = 0;
+		for (auto && columnValuePair : adjacency_matrix_[nodePair.first])
+		{
+			if (columnValuePair.second != nullptr)
+				bs++;
+		}
+
+		// Fi = S / A * (Sum(bi))
+		forces.push_back(getNetworkDensity() * bs);
+	}
+
+	// Fi array
+	return forces;
+}
+
+// I(X,Y) = H(X) - H(Y/X) = ...
+std::map<unsigned, float> Graph::getAmountInfos()
+{
+	std::map<unsigned, float> amounts;
+
+	auto inProbs = getInputProbabilities();
+	auto outProbs = getOutputProbabilities();
+	   
+	for (auto && nodePair : nodes_)
+	{
+		auto m = getInEdgesCount(nodePair.first);
+		auto n = getOutEdgesCount(nodePair.first);
+
+		float I = 0;
+		// Ii(X,Y) = - SUM j..n ( SUM i..m ( p(Xi,Yj) ) * Log2 ( SUM i..m ( P(Xi, Yj) ) ) )
+		float sumJN = 0;
+		for (auto j = 0; j < n; ++j)
+		{
+			float sumIM = 0;
+			for (auto i = 0; i < m; ++i)
+			{
+				// P(Xi, Yj) = P(Xi) * P(Yj)
+				auto p = inProbs[nodePair.first] * outProbs[nodePair.first];
+				sumIM += p;
+			}
+			if (m > 0)
+				sumJN += sumIM * std::log2f(sumIM);
+			else
+				sumJN += 0;
+		}
+		I = -sumJN;
+		//			 + SUM i..m ( SUM j..n ( P(Xi,Yj) ) * Log2 ( P (Xi, Yj) / SUM j..n (P(Xi, Yj)) ) )			
+		float sumIM = 0;
+		for (auto i = 0; i < m; ++i)
+		{
+			sumJN = 0;
+			for (auto j =0; j < n; ++j)
+			{
+				// P(Xi, Yj) = P(Xi) * P(Yj)
+				auto p = inProbs[nodePair.first] * outProbs[nodePair.first];
+				sumJN += p;
+			}
+
+			if (n > 0)
+				sumIM += sumJN * std::log2f(inProbs[nodePair.first] * outProbs[nodePair.first] / sumJN);
+			else
+				sumIM += 0;
+		}
+
+		I += sumIM;
+
+		amounts[nodePair.first] = I;
+	}
+
+	return amounts;
+}
+
+// P(x)  - probability of communication
+std::map<unsigned, float> Graph::getInputProbabilities()
+{
+	std::map<unsigned, float> probabilities;
+
+	for (auto && nodePair : nodes_)
+	{
+		/*auto inCount = getInEdgesCount(nodePair.first);*/
+		probabilities[nodePair.first] = 1. /*- static_cast<float>(inCount)*/ / (nodes_.size() - 1);
+	}
+	return probabilities;
+}
+
+// P(y) - probability of communication
+std::map<unsigned, float> Graph::getOutputProbabilities()
+{
+	std::map<unsigned, float> probabilities;
+
+	for (auto&& nodePair : nodes_)
+	{
+		/*auto outCount = getOutEdgesCount(nodePair.first);*/
+		probabilities[nodePair.first] = 1. /*- static_cast<float>(outCount)*/ / (nodes_.size() - 1);
+	}
+	return probabilities;
 }
 
 void Graph::createNodeInstance(unsigned id)

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <map>
 #include "Node.h"
 #include "Edge.h"
@@ -18,21 +18,36 @@ public:
 
 	void addNode(unsigned id);
 	void deleteNode(unsigned id);
+	std::vector<unsigned> getNodesIds();
 
 	void addEdge(unsigned from, unsigned to, int weight);
 	virtual void deleteEdge(unsigned from, unsigned to);
 
 	size_t getInEdgesCount(unsigned node_id);
 	size_t getOutEdgesCount(unsigned node_id);
-
+	   
 	// TODO: Methods
+	// V - The number of vertices (Nodes) in the graph
 	int getNodesCount() const;
+	// A - The possible number of edges in the graph
 	int getMaxEdgesCount() const;
+	// S - The number of observed connections (edges)
 	int getCurrEdgesCount();
 
+	// ∆ - is the network density
 	float getNetworkDensity();
 
+	// Fi - An array of forces of influence verticles (Nodes).
+	std::vector<float> getForces();
+
+	// I(X,Y) = H(X) - H(Y/X) = ...
+	std::map<unsigned, float> getAmountInfos();
 protected:
+	// x - input edges, y - output edges
+	// P(x) || P(y) - probability of communication (input || output)
+	std::map<unsigned, float> getInputProbabilities();
+	std::map<unsigned, float> getOutputProbabilities();
+
 	virtual void createNodeInstance(unsigned id);
 	virtual void createEdgeInstance(unsigned from, unsigned to, int weight);
 
